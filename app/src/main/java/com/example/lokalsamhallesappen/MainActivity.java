@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity
 
     private Map<String, String> subChaptersToContent = null;
 
-    private int startID;
-
     private ExpandableListAdapter listAdapter = null;
     private ExpandableListView expandableListView;
     private List<String> chapters = null;
@@ -83,7 +81,6 @@ public class MainActivity extends AppCompatActivity
             chapters = new ArrayList<>();
             chaptersToSubChapters = new HashMap<>();
             subChaptersToContent = new HashMap<>();
-
             chapters.add("Start");
 
             ExcelSheetService excelSheetService = new ExcelSheetService();
