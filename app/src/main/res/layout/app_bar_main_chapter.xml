@@ -21,7 +21,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/homepage_main" />
+    <include layout="@layout/chapter_main" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

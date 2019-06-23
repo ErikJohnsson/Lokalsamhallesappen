@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_main_homepage">
 
     <TextView
-        android:id="@+id/titlePolitics"
+        android:id="@+id/titleChapter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titlePolitics" />
+        app:layout_constraintTop_toBottomOf="@+id/titleChapter" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -67,7 +67,7 @@
     </ScrollView>
 
     <ScrollView
-        android:id="@+id/buttonScrollView"
+        android:id="@+id/buttonChapterScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/searchText">
 
         <LinearLayout
-            android:id="@+id/chaptersButtonLayout"
+            android:id="@+id/subChaptersButtonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
