@@ -19,7 +19,7 @@ The list of features are currently:
 <br>
 Download <a href="https://developer.android.com/studio">Android studio</a>.
 <br>
-Check-out the repo and familirize yourself with the code.
+Check-out the repo and familiarize yourself with the code.
 <br>
 Check the issues tab for something interesting that needs to be done. Claim the issue you want to work with and your're off!
 <br>
