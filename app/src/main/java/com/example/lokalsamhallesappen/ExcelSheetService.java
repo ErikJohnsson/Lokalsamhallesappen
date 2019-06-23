@@ -3,6 +3,7 @@ package com.example.lokalsamhallesappen;
 import android.annotation.TargetApi;
 import android.content.res.AssetManager;
 import android.text.Html;
+import android.text.Spanned;
 import android.widget.TextView;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -31,10 +32,8 @@ public class ExcelSheetService {
         }
     }
 
-
     @TargetApi(24)
-    public static void SetTextViewTextFromHtml(TextView textView, String string)
-    {
-        textView.setText(Html.fromHtml(string, Html.FROM_HTML_MODE_COMPACT));
+    public static Spanned GetHtmlFormattedText(String unformattedString){
+        return Html.fromHtml(unformattedString, Html.FROM_HTML_MODE_COMPACT);
     }
 }
