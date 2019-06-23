@@ -6,9 +6,9 @@ The list of features are:
  
 <b>Installation</b>
 <br>
- LINK TO THE .APK
+ LINK TO THE .APK (Doesn't exist yet)
  <br>
- LINK TO ANDROID PLAYSTORE
+ LINK TO ANDROID PLAYSTORE (Doesn't exist yet)
  
 <b>Contributing</b>
 <br>
