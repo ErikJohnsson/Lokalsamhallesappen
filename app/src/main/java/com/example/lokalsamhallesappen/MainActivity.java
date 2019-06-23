@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity
             chapters = new ArrayList<>();
             chaptersToSubChapters = new HashMap<>();
             subChaptersToContent = new HashMap<>();
-
             chapters.add("Start");
 
             ExcelSheetService excelSheetService = new ExcelSheetService();
