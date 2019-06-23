@@ -1,15 +1,7 @@
 package com.example.lokalsamhallesappen;
 
-import android.text.Html;
-import android.text.Spannable;
-import android.text.style.BackgroundColorSpan;
-import android.widget.LinearLayout;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChapterSearchService {
@@ -29,8 +21,9 @@ public class ChapterSearchService {
             }else{
                 String content = subChapterToContent.get(key);
                 content = ExcelSheetService.GetHtmlFormattedText(content).toString();
-                if(content.contains(charSequence)){
-                    int index = content.indexOf(charSequence.toString());
+                if(Pattern.compile(Pattern.quote(charSequence.toString()),Pattern.CASE_INSENSITIVE).matcher(content).find()){
+                    String lowerCaseContent = content.toLowerCase();
+                    int index = lowerCaseContent.indexOf(charSequence.toString().toLowerCase());
                     int startIndex = index - 40;
                     int endIndex = index + 30;
                     if(endIndex > content.length()){

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -174,16 +175,17 @@ public class MainActivity extends AppCompatActivity
                 if(searchText.getText().length() > 1) {
                     scrollView.setVisibility(View.GONE);
                     searchLayout.setVisibility(View.VISIBLE);
+
                     Map<String, String> result = chapterSearchService.GetResults(searchText.getText().toString(), subChaptersToContent);
 
-                    int oddOrEven = 0;
+                    int grayOrWhite = 0;
                     for (final String subChapter : result.keySet()) {
-                        oddOrEven++;
+                        grayOrWhite++;
                         TextView resultView = new TextView(searchLayout.getContext());
                         resultView.setTextColor(getResources().getColor(R.color.colorPrimary));
                         resultView.setTextSize(14);
 
-                        if(oddOrEven%2 == 0){
+                        if(grayOrWhite%2 == 0){
                             resultView.setBackgroundColor(Color.LTGRAY);
                         }
 
@@ -198,7 +200,7 @@ public class MainActivity extends AppCompatActivity
                                 .setBold(true)
                                 .setItalic(true)
                                 .addTarget(resultView)
-                                .highlight(charSequence.toString(), TextHighlighter.BASE_MATCHER);
+                                .highlight(charSequence.toString(), TextHighlighter.CASE_INSENSITIVE_MATCHER);
 
                         resultView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -294,21 +296,38 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void SwitchToSubChapter(String subChapter, String highlightedWord){
+    private void SwitchToSubChapter(String subChapter, final String highlightedWord){
        SwitchToSubChapter(subChapter);
-       TextView textView = findViewById(R.id.TextViewPolitics);
+       final TextView textView = findViewById(R.id.TextViewPolitics);
        new TextHighlighter()
                 .setBackgroundColor(getResources().getColor(R.color.colorAccent))
                 .setForegroundColor(Color.WHITE)
                 .setBold(true)
                 .setItalic(true)
                 .addTarget(textView)
-                .highlight(highlightedWord, TextHighlighter.BASE_MATCHER);
+                .highlight(highlightedWord, TextHighlighter.CASE_INSENSITIVE_MATCHER);
 
-   /*    ScrollView scrollView = findViewById(R.id.scrollviewContentPolitics);
-       int startPos = textView.getText().toString().indexOf(highlightedWord);
-       Layout layout = textView.getLayout();
-       scrollView.scrollTo(0, layout.getLineTop(layout.getLineForOffset(startPos)));*/
+
+       // Have to listen to when the TreeViews layout is created or we get a nullPointerReference when calling getLayout()
+        final ViewTreeObserver vto = textView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ScrollView scrollView = findViewById(R.id.scrollviewContentPolitics);
+
+                String lowerCaseContent = textView.getText().toString().toLowerCase();
+                int startPos = lowerCaseContent.indexOf(highlightedWord.toLowerCase());
+
+                Layout layout = textView.getLayout();
+
+                int line = layout.getLineTop(layout.getLineForOffset(startPos));
+                scrollView.scrollTo(0, line);
+
+                // Removes the listener.
+                vto.removeOnGlobalLayoutListener(this);
+            }
+        });
+
     }
 
     @Override
