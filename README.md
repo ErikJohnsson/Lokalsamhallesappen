@@ -3,6 +3,7 @@
 This is a mobile app for "Centerpartiets ungdomsförbund", the youth party for Centerpartiet, the green liberal party in Sweden.
 The list of features are currently:
  * Easy access to "Sakpolitiska programmet".
+ * Search the entire "Sakpolitiska programmet"!
  
 <b>Installation</b>
 <br>
