@@ -2,23 +2,18 @@ package com.example.lokalsamhallesappen;
 import android.os.Bundle;
 import androidx.core.view.GravityCompat;
 import android.view.MenuItem;
+
+import com.example.lokalsamhallesappen.politicalpogram.Chapter;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
-import java.util.HashMap;
+
+import org.apache.poi.ss.usermodel.Sheet;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
-
-    private List<String> chapters = null;
-    private HashMap<String, List<String>> chaptersToSubChapters = null;
-    private Map<String, String> subChaptersToContent = null;
-
     private InterfaceHandler interfaceHandler;
 
     @Override
@@ -27,9 +22,13 @@ public class MainActivity extends AppCompatActivity
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_content);
 
-        interfaceHandler = new InterfaceHandler(this, getApplicationContext(), chapters, chaptersToSubChapters, subChaptersToContent);
+        ExcelSheetService excelSheetService = new ExcelSheetService();
+        Sheet sheet = excelSheetService.GetSheet(getAssets());
+        List<Chapter> chapters = excelSheetService.getChapterData(sheet);
+
+        interfaceHandler = new InterfaceHandler(this, getApplicationContext(), chapters);
 
         interfaceHandler.InitNavigationDrawer();
         interfaceHandler.InitNavigationList();
@@ -38,11 +37,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+
+        if(!interfaceHandler.goBack()) {
+
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
