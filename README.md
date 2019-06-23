@@ -10,6 +10,10 @@ The list of features are:
  <br>
  LINK TO ANDROID PLAYSTORE (Doesn't exist yet)
  
+ <b>New features</b>
+ <br>
+ Is there a feature you are missing? Add it to the issues tab and we'll see if we can implement it!
+ 
 <b>Contributing</b>
 <br>
 Download <a href="https://developer.android.com/studio">Android studio</a>.
