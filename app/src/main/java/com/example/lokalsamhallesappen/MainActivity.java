@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity
 
     private Map<String, String> subChaptersToContent = null;
 
-    private int startID;
-
     private ExpandableListAdapter listAdapter = null;
     private ExpandableListView expandableListView;
     private List<String> chapters = null;
