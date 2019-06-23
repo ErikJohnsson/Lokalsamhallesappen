@@ -1,16 +1,22 @@
 package com.example.lokalsamhallesappen;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import android.view.SubMenu;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 
+import android.text.Editable;
+import android.text.Html;
+import android.text.Layout;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.xeoh.android.texthighlighter.TextHighlighter;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -18,32 +24,34 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static android.widget.ListPopupWindow.MATCH_PARENT;
+import static android.widget.ListPopupWindow.WRAP_CONTENT;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Map<String, String> subHeadersToContent = new HashMap<>();
+    private Map<String, String> subChaptersToContent = null;
 
-    private ExpandableListAdapter listAdapter;
+    private int startID;
+
+    private ExpandableListAdapter listAdapter = null;
     private ExpandableListView expandableListView;
-    private List<String> listDataHeaders;
-    private HashMap<String, List<String>> headersToSubHeaders;
-
+    private List<String> chapters = null;
+    private HashMap<String, List<String>> chaptersToSubChapters = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,27 +60,41 @@ public class MainActivity extends AppCompatActivity
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
         setContentView(R.layout.activity_main);
 
+        InitNavigationDrawer();
+        InitNavigationList();
+        switchToHomePage();
+    }
+
+    private void InitNavigationDrawer(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+    }
 
+    private void InitNavigationList(){
+        if(chapters == null) {
+
+            // Preparing list data
+            chapters = new ArrayList<>();
+            chaptersToSubChapters = new HashMap<>();
+            subChaptersToContent = new HashMap<>();
+
+            chapters.add("Start");
+
+            ExcelSheetService excelSheetService = new ExcelSheetService();
+            Sheet sheet = excelSheetService.GetSheet(getAssets());
+
+            ExpandableListService service = new ExpandableListService();
+            service.prepareListData(sheet, chapters, chaptersToSubChapters, subChaptersToContent);
+        }
+        // Setting list adapter
         // Gets the ExpandableListView
         expandableListView = findViewById(R.id.listViewExpandable);
-
-        // Preparing list data
-        ExcelSheetService excelSheetService = new ExcelSheetService();
-        Sheet sheet = excelSheetService.GetSheet(getAssets());
-        PrepareListData(sheet);
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeaders, headersToSubHeaders);
-
-        // Setting list adapter
+        listAdapter = new ExpandableListAdapter(this, chapters, chaptersToSubChapters);
         expandableListView.setAdapter(listAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -80,53 +102,131 @@ public class MainActivity extends AppCompatActivity
                 return onSubChapterClicked(parent, v, groupPosition, childPosition, id);
             }
         });
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                return onChapterClicked(expandableListView, view, i, l);
+            }
+        });
     }
 
-
-    private void PrepareListData(Sheet sheet){
-        listDataHeaders = new ArrayList<>();
-        headersToSubHeaders = new HashMap<>();
-        DataFormatter dataFormatter = new DataFormatter();
-
-        int chapter = 1;
-
-        Iterator<Row> rowIterator = sheet.rowIterator();
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-            Iterator<Cell> cellIterator = row.cellIterator();
-
-            String chapterName = dataFormatter.formatCellValue(cellIterator.next());
-            String chapterNameFull = chapter + ". " + chapterName;
-            if(chapterName.equals("")){
-                break;
-            }
-
-            listDataHeaders.add(chapterNameFull);
-            headersToSubHeaders.put(chapterNameFull, new LinkedList<String>());
-
-
-            int subChapter = 1;
-            boolean foundEmpty = false;
-            while (cellIterator.hasNext() && !foundEmpty) {
-                Cell cell = cellIterator.next();
-                String title = dataFormatter.formatCellValue(cell);
-                if(title.equals("")){
-                    foundEmpty = true;
-                }
-                else {
-                    String subChapterName = chapter + "." + subChapter + ". " + title;
-                    subChapter++;
-
-                    cell = cellIterator.next();
-                    String text = dataFormatter.formatCellValue(cell);
-
-                    headersToSubHeaders.get(chapterNameFull).add(subChapterName);
-                    subHeadersToContent.put(subChapterName, text);
-                }
-            }
-
-            chapter++;
+    private boolean onChapterClicked(ExpandableListView expandableListView, View view, int i, long l) {
+        if(chapters.get(i) == "Start"){
+            switchToHomePage();
+            return true;
         }
+
+        return false;
+    }
+
+    private void switchToHomePage(){
+        setContentView(R.layout.activity_main_homepage);
+        InitNavigationDrawer();
+        InitNavigationList();
+
+        InitSearch();
+
+        final LinearLayout chapterButtonLayout = findViewById(R.id.chaptersButtonLayout);
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+        layoutParams.setMargins(0, 0, 0, 20);
+        for (final String chapter: chapters){
+            if(chapter != "Start") {
+                Button button = createChapterButton(chapter, chapterButtonLayout.getContext());
+                chapterButtonLayout.addView(button, layoutParams);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        chapterButtonLayout.removeAllViews();
+                        for(final String subChapter: chaptersToSubChapters.get(chapter)){
+                            Button button = createChapterButton(subChapter, chapterButtonLayout.getContext());
+                            chapterButtonLayout.addView(button, layoutParams);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    SwitchToSubChapter(subChapter);
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    private void InitSearch() {
+        final EditText searchText = findViewById(R.id.searchText);
+        final LinearLayout searchLayout = findViewById(R.id.searchLayout);
+        searchLayout.setVisibility(View.GONE);
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence charSequence, int i, int i1, int i2) {
+                ChapterSearchService chapterSearchService = new ChapterSearchService();
+                final ScrollView scrollView = findViewById(R.id.buttonScrollView);
+                searchLayout.removeAllViews();
+                final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                layoutParams.setMargins(0, 0, 0, 10);
+                if(searchText.getText().length() > 1) {
+                    scrollView.setVisibility(View.GONE);
+                    searchLayout.setVisibility(View.VISIBLE);
+                    Map<String, String> result = chapterSearchService.GetResults(searchText.getText().toString(), subChaptersToContent);
+
+                    int oddOrEven = 0;
+                    for (final String subChapter : result.keySet()) {
+                        oddOrEven++;
+                        TextView resultView = new TextView(searchLayout.getContext());
+                        resultView.setTextColor(getResources().getColor(R.color.colorPrimary));
+                        resultView.setTextSize(14);
+
+                        if(oddOrEven%2 == 0){
+                            resultView.setBackgroundColor(Color.LTGRAY);
+                        }
+
+                        if (subChapter.equals(result.get(subChapter))) {
+                            resultView.setText(subChapter);
+                        } else {
+                            resultView.setText("(" + subChapter + ") " + result.get(subChapter));
+                        }
+                        new TextHighlighter()
+                                .setBackgroundColor(getResources().getColor(R.color.colorAccent))
+                                .setForegroundColor(Color.WHITE)
+                                .setBold(true)
+                                .setItalic(true)
+                                .addTarget(resultView)
+                                .highlight(charSequence.toString(), TextHighlighter.BASE_MATCHER);
+
+                        resultView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                SwitchToSubChapter(subChapter, charSequence.toString());
+                            }
+                        });
+                        searchLayout.addView(resultView, layoutParams);
+                    }
+                }else{
+                    scrollView.setVisibility(View.VISIBLE);
+                    searchLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private Button createChapterButton(String text, Context context){
+        Button button = new Button(context);
+        button.setText(text);
+        button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        button.setTextColor(getResources().getColor(R.color.white));
+        return button;
     }
 
     @Override
@@ -163,23 +263,10 @@ public class MainActivity extends AppCompatActivity
 
     public boolean onSubChapterClicked(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-        String item = headersToSubHeaders.get(
-                listDataHeaders.get(groupPosition)).get(
+        String item = chaptersToSubChapters.get(
+                chapters.get(groupPosition)).get(
                 childPosition);
-
-        String text = subHeadersToContent.get(item);
-
-        TextView textView = findViewById(R.id.TextViewPolitics);
-        TextView titleTextView = findViewById(R.id.titlePolitics);
-
-        titleTextView.setText(item);
-
-        if(getApplicationInfo().targetSdkVersion >= 24){
-            ExcelSheetService.SetTextViewTextFromHtml(textView, text);
-        }else {
-            // Adds the text un-formatted.
-            textView.setText(text);
-        }
+        SwitchToSubChapter(item);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -187,19 +274,51 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void SwitchToSubChapter(String subChapter){
+        setContentView(R.layout.activity_main);
+        InitNavigationDrawer();
+        InitNavigationList();
+
+        String text = subChaptersToContent.get(subChapter);
+
+        TextView textView = findViewById(R.id.TextViewPolitics);
+        TextView titleTextView = findViewById(R.id.titlePolitics);
+
+        titleTextView.setText(subChapter);
+
+        if(getApplicationInfo().targetSdkVersion >= 24){
+            textView.setText(ExcelSheetService.GetHtmlFormattedText(text));
+        }else {
+            // Sets the text un-formatted.
+            textView.setText(text);
+        }
+    }
+
+    private void SwitchToSubChapter(String subChapter, String highlightedWord){
+       SwitchToSubChapter(subChapter);
+       TextView textView = findViewById(R.id.TextViewPolitics);
+       new TextHighlighter()
+                .setBackgroundColor(getResources().getColor(R.color.colorAccent))
+                .setForegroundColor(Color.WHITE)
+                .setBold(true)
+                .setItalic(true)
+                .addTarget(textView)
+                .highlight(highlightedWord, TextHighlighter.BASE_MATCHER);
+
+   /*    ScrollView scrollView = findViewById(R.id.scrollviewContentPolitics);
+       int startPos = textView.getText().toString().indexOf(highlightedWord);
+       Layout layout = textView.getLayout();
+       scrollView.scrollTo(0, layout.getLineTop(layout.getLineForOffset(startPos)));*/
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        TextView textView = findViewById(R.id.TextViewPolitics);
-        if(getApplicationInfo().targetSdkVersion >= 24){
-            ExcelSheetService.SetTextViewTextFromHtml(textView, subHeadersToContent.get(item));
-        }else {
-            // Adds the text un-formatted.
-            textView.setText(subHeadersToContent.get(item));
+        if(id == startID){
+            switchToHomePage();
         }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
