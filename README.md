@@ -6,7 +6,7 @@ The list of features are currently:
  
 <b>Installation</b>
 <br>
- LINK TO THE .APK (Doesn't exist yet)
+ <a href="https://drive.google.com/file/d/1jevb0-VoN9dmQVdIBDFMv2JW7TkHKRjj/view?usp=sharing">LINK TO THE .APK</a>
  <br>
  LINK TO ANDROID PLAYSTORE (Doesn't exist yet)
  
