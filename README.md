@@ -22,12 +22,13 @@ The list of features are currently:
  <b>Resources and tutorials</b>
   <br>
   - [Dart programming tutorial](https://www.tutorialspoint.com/dart_programming/)
+  - [Flutter - Get started](https://flutter.dev/docs/get-started/install)
   - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
   - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
  
 <b>Contributing</b>
 <br>
-Download <a href="https://developer.android.com/studio">Android studio</a>.
+Read through the <a href="https://flutter.dev/docs/get-started/install">Flutter getting started guide</a>.
 <br>
 Check-out the repo and familiarize yourself with the code.
 <br>
