@@ -15,9 +15,13 @@ The list of features are currently:
  <br>
  Is there a feature you are missing? Add it to the issues tab and we'll see if we can implement it!
  
- <b>Resources</b>
+ <b>Dependencies</b>
   <br>
-  The app is created using the Flutter framework.
+ The application is written in dart using the Flutter framework.
+ 
+ <b>Resources and tutorials</b>
+  <br>
+  - [Dart programming tutorial](https://www.tutorialspoint.com/dart_programming/)
   - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
   - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
  
