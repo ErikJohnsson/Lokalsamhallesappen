@@ -1,3 +1,4 @@
+
 <b>Lokalsamhällesappen</b>
 <br>
 This is a mobile app for "Centerpartiets ungdomsförbund", the youth party for Centerpartiet, the green liberal party in Sweden.
@@ -7,13 +8,18 @@ The list of features are currently:
  
 <b>Installation</b>
 <br>
- <a href="https://drive.google.com/file/d/1jevb0-VoN9dmQVdIBDFMv2JW7TkHKRjj/view?usp=sharing">LINK TO THE .APK</a>
- <br>
- LINK TO ANDROID PLAYSTORE (Doesn't exist yet)
+ <a href="https://play.google.com/store/apps/details?id=com.cuf.lokalsamhallesappen">LINK TO ANDROID PLAYSTORE</a>
+<br>
  
  <b>New features</b>
  <br>
  Is there a feature you are missing? Add it to the issues tab and we'll see if we can implement it!
+ 
+ <b>Resources</b>
+  <br>
+  The app is created using the Flutter framework.
+  - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+  - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
  
 <b>Contributing</b>
 <br>

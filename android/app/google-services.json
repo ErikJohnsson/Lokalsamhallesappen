@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1060117536060",
+    "firebase_url": "https://lokalsamhallesappen.firebaseio.com",
+    "project_id": "lokalsamhallesappen",
+    "storage_bucket": "lokalsamhallesappen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060117536060:android:b5b49ccbef78934b",
+        "android_client_info": {
+          "package_name": "com.cuf.lokalsamhallesappen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060117536060-6bnijhvavmt6gaam1io26ikgjrplljvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUPgrzH-HKrwB24z4PUYISi0pTCCgEiUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060117536060-6bnijhvavmt6gaam1io26ikgjrplljvd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1060117536060-214hivsb3rg10se3eaf56tm2cn12pc6q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cuf.lokalsamhallesappen"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
