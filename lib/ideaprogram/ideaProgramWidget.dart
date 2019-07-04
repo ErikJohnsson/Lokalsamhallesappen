@@ -20,6 +20,7 @@ class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
     if(ideaProgram == null){
       IdeaProgramService service = new IdeaProgramService();
       service.fetchIdeaProgram().then((result) => setIdeaProgram(result));
+
       return Container(
           child: Center(
             child: CircularProgressIndicator(

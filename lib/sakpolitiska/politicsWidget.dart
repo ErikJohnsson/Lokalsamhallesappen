@@ -22,6 +22,12 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
         children: <Widget>[
           Expanded(
             child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("images/sakpolitiska_background.jpg")
+                )
+              ),
                 child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
             ),
           ),

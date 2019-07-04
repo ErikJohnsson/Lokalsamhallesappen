@@ -29,8 +29,9 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
   @override
   Widget build(BuildContext context) {
     ChapterService service = new ChapterService();
-    service.fetchChapters().then((result) => fetchChaptersFinished(result));
     if(chapters == null){
+      service.fetchChapters().then((result) => fetchChaptersFinished(result));
+
       return Container(
           child: Center(
             child: CircularProgressIndicator(
@@ -43,6 +44,7 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
     List<Widget> cards = new List();
     cards.add(GestureDetector(
         child: Container(
+          margin: EdgeInsets.fromLTRB(25, 0, 25, 8),
             color: Color.fromRGBO(245, 245, 245, 1),
             child:ListTile(
               title: TextField(
@@ -69,8 +71,11 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
 
     return Container(
           child: Container(
-            child: Column(
-                children: cards,
+            child: Center(
+              child: ListView(
+                  shrinkWrap: true,
+                  children: cards,
+              ),
             ),
           ),
     );

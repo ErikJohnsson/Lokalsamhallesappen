@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+.gradle/*
 
 # IntelliJ related
 *.iml
@@ -68,3 +69,8 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+#Keystore related
+*.jks
+keystorepassword.txt
+android/key.properties

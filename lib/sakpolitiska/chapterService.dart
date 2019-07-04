@@ -37,10 +37,13 @@ class ChapterService{
   }
 
   Widget buildCard(Chapter chapter, BuildContext context){
-      return Expanded(
-        child: GestureDetector(
+      return GestureDetector(
                 child: Container(
-                  color: Color.fromRGBO(172, 202, 87, 1),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(172, 202, 87, 0.9),
+                    borderRadius: BorderRadius.circular(5)
+                  ),
+                  margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
                     child:ListTile(
                       leading: Icon(Icons.book, color: Colors.white),
                       title: AutoSizeText(
@@ -56,7 +59,6 @@ class ChapterService{
             onTap:() => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ChapterWidget(chapter: chapter,)))
-    ),
       );
   }
 }
