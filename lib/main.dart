@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lokalsamhallesappen/sakpolitiska/politicsWidget.dart';
+
+import 'homescreen/homeScreenWidget.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+
     return MaterialApp(
       title: 'Lokalsamhällesappen',
       theme: ThemeData(
@@ -60,9 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   getPage(){
     switch(_selectedPage){
-      case 0: return Center(
-          child: Text("HOME")
-      );
+      case 0: return HomePageWidget();
       case 1: return PoliticsPageWidget();
     }
   }
