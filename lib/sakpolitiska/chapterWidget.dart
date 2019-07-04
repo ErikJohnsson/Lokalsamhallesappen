@@ -7,12 +7,14 @@ import 'chapter.dart';
 class ChapterWidget extends StatefulWidget {
   final Chapter chapter;
   final int startAtChapter;
+  final bool appBarEnabled;
 
   ChapterWidget(
       {
         Key key,
         @required this.chapter,
-        this.startAtChapter = 0
+        this.startAtChapter = 0,
+        this.appBarEnabled = true
       }
       ) : super(key: key
   );
@@ -111,6 +113,7 @@ class ChapterWidgetState extends State<ChapterWidget>{
     _scrollController = new ScrollController();
 
     topBarNavigation = ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(),
       scrollDirection: Axis.horizontal,
       controller: _scrollController,
       itemCount: navigationItems.length,
@@ -167,6 +170,7 @@ class ChapterWidgetState extends State<ChapterWidget>{
     _controller = PageController(initialPage: widget.startAtChapter, keepPage: false);
 
     return PageView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
         itemCount: pages.length,
         itemBuilder: (context, index) => pages[index],
         controller: _controller,
@@ -175,11 +179,11 @@ class ChapterWidgetState extends State<ChapterWidget>{
 
   Widget buildChapterPage(){
     return Scaffold(
-        appBar: AppBar(
+        appBar: widget.appBarEnabled ? AppBar(
           elevation: 0.1,
           backgroundColor: Color.fromRGBO(001, 106, 058, 1.0),
           title: Text(widget.chapter.title)
-        ),
+        ) : null,
         body: Column(
             children: <Widget>[
               SizedBox(

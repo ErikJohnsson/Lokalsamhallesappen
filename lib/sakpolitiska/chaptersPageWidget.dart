@@ -19,9 +19,11 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
   List<Chapter> chapters;
 
   void fetchChaptersFinished(List<Chapter> chapters){
-    setState(() {
-      this.chapters = chapters;
-    });
+    if(mounted) {
+      setState(() {
+        this.chapters = chapters;
+      });
+    }
   }
 
   @override
@@ -29,51 +31,51 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
     ChapterService service = new ChapterService();
     service.fetchChapters().then((result) => fetchChaptersFinished(result));
     if(chapters == null){
-      return Scaffold(
-          appBar:  AppBar(
-            centerTitle: true,
-            elevation: 0.1,
-            backgroundColor: Color.fromRGBO(001, 106, 058, 1.0),
-            title: Text("Sakpolitiska programmet")
-          ),
-          body: Center(
+      return Container(
+          child: Center(
             child: CircularProgressIndicator(
             ),
           )
       );
     }
-    Widget chaptersWidget = service.buildChapterCards(context, chapters);
-
     ChapterSearch chapterSearch = new ChapterSearch();
+
+    List<Widget> cards = new List();
+    cards.add(GestureDetector(
+        child: Container(
+            color: Color.fromRGBO(245, 245, 245, 1),
+            child:ListTile(
+              title: TextField(
+                decoration: InputDecoration(
+                  hintText: "Sök",
+                  border: InputBorder.none
+                ),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20
+                ),
+                onTap: () => showSearch(context: context, delegate: chapterSearch),
+              ),
+              leading: Icon(Icons.search, color: Colors.black),
+            )
+        ),
+        onTap:() => showSearch(context: context, delegate: chapterSearch)
+    ));
+
+    cards.addAll(service.buildChapterCards(context, chapters));
+
+
     chapterSearch.setChapterList(chapters);
 
-    return Scaffold(
-        appBar:  AppBar(
-            centerTitle: true,
-            elevation: 0.1,
-            backgroundColor: Color.fromRGBO(001, 106, 058, 1.0),
-            title: Text("Sakpolitiska programmet"),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.search),
-                  color: Colors.white,
-                  onPressed: () async {
-                    showSearch(context: context, delegate: chapterSearch);
-                  })
-            ],
-        ),
-        body: Column(
-            children: <Widget>[
-              Expanded(
-                  child: SizedBox(
-                      child: chaptersWidget
-                  )
-              ),
-            ]
-        )
+    return Container(
+          child: Container(
+            child: Column(
+                children: cards,
+            ),
+          ),
     );
-  }
 
+  }
 }
 
 class ChapterSearch extends SearchDelegate<Chapter>{
