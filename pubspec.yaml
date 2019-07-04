@@ -20,6 +20,8 @@ dependencies:
   cloud_firestore:
   auto_size_text: ^2.0.1
   flutter_html: ^0.10.4
+  font_awesome_flutter: ^8.0.1
+  url_launcher: ^5.0.3
   flutter:
     sdk: flutter
 
@@ -61,6 +63,7 @@ flutter:
   # example:
   assets:
     - images/sakpolitiska_background.jpg
+    - images/home_background.jpg
   fonts:
      - family: CalibriLight
        fonts:
