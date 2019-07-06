@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:lokalsamhallesappen/sakpolitiska/politicsWidget.dart';
 
 import 'homescreen/homeScreenWidget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,14 +45,18 @@ class _MyHomePageState extends State<MyHomePage> {
               currentIndex: _selectedPage,
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: Icon(FontAwesomeIcons.home),
                   title: Text("Hem")
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.library_books),
+                    icon: Icon(FontAwesomeIcons.book),
                     title: Text("Vår politik")
+                ),
+                BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.gavel),
+                    title: Text("Förbundsstämma")
                 )
-            ]),
+              ]),
             body: getPage()
         )
     );
