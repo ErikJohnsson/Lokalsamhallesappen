@@ -64,6 +64,7 @@ flutter:
   assets:
     - images/sakpolitiska_background.jpg
     - images/home_background.jpg
+    - images/congress_background.jpg
   fonts:
      - family: CalibriLight
        fonts:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lokalsamhallesappen/sakpolitiska/politicsWidget.dart';
 
+import 'congress/congressPageWidget.dart';
 import 'homescreen/homeScreenWidget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch(_selectedPage){
       case 0: return HomePageWidget();
       case 1: return PoliticsPageWidget();
+      case 2: return CongressPageWidget();
     }
   }
 }

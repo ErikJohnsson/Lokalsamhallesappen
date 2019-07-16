@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'chapter.dart';
 import 'chapterService.dart';
@@ -39,18 +40,23 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
           )
       );
     }
+
     ChapterSearch chapterSearch = new ChapterSearch();
+    chapterSearch.setChapterList(chapters);
 
     List<Widget> cards = new List();
     cards.add(GestureDetector(
         child: Container(
-          margin: EdgeInsets.fromLTRB(25, 0, 25, 8),
-            color: Color.fromRGBO(245, 245, 245, 1),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white.withOpacity(0.9),
+            ),
+            margin: EdgeInsets.fromLTRB(25, 0, 25, 8),
             child:ListTile(
               title: TextField(
                 decoration: InputDecoration(
-                  hintText: "Sök",
-                  border: InputBorder.none
+                    hintText: "Sök...",
+                    border: InputBorder.none
                 ),
                 style: TextStyle(
                     color: Colors.black,
@@ -58,26 +64,21 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
                 ),
                 onTap: () => showSearch(context: context, delegate: chapterSearch),
               ),
-              leading: Icon(Icons.search, color: Colors.black),
+              leading: Icon(FontAwesomeIcons.search, color: Color.fromRGBO(001, 106, 058, 1)),
             )
         ),
         onTap:() => showSearch(context: context, delegate: chapterSearch)
     ));
-
     cards.addAll(service.buildChapterCards(context, chapters));
 
-
-    chapterSearch.setChapterList(chapters);
-
     return Container(
-          child: Container(
-            child: Center(
+            child: Container(
+              alignment: Alignment.center,
               child: ListView(
                   shrinkWrap: true,
                   children: cards,
               ),
             ),
-          ),
     );
 
   }

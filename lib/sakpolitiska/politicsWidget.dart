@@ -18,24 +18,27 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("images/sakpolitiska_background.jpg")
-                )
+    return Scaffold(
+      body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("images/sakpolitiska_background.jpg"),
+                      colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                  )
+                ),
+                  child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
               ),
-                child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
             ),
-          ),
-          SizedBox(
-          height: 52,
-          child: buildTopNavigation()
-          ),
-        ]
+            SizedBox(
+            height: 52,
+            child: buildTopNavigation()
+            ),
+          ]
+      ),
     );
   }
 
