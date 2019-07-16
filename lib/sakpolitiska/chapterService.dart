@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'chapter.dart';
 import 'chapterWidget.dart';
@@ -37,19 +38,23 @@ class ChapterService{
   }
 
   Widget buildCard(Chapter chapter, BuildContext context){
+    Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
+
       return GestureDetector(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(172, 202, 87, 0.9),
+                    color: Colors.white.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(5)
                   ),
                   margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
                     child:ListTile(
-                      leading: Icon(Icons.book, color: Colors.white),
+                      leading: Icon(
+                          getIcon(chapter.title),
+                          color: cufDarkGreen),
                       title: AutoSizeText(
                         chapter.title,
                         style: TextStyle(
-                            color: Colors.white,
+                            color: cufDarkGreen,
                             fontSize: 20
                         ),
                         maxLines: 1,
@@ -60,5 +65,30 @@ class ChapterService{
                 context,
                 MaterialPageRoute(builder: (context) => ChapterWidget(chapter: chapter,)))
       );
+  }
+
+  IconData getIcon(String chapterTitle){
+    switch(chapterTitle){
+      case "Demokrati":
+        return FontAwesomeIcons.university;
+      case "Människan":
+        return FontAwesomeIcons.male;
+      case "Jämställdhet":
+        return FontAwesomeIcons.balanceScale;
+      case "Migration och integration":
+        return FontAwesomeIcons.passport;
+      case "Miljö":
+        return FontAwesomeIcons.tree;
+      case "Utbildning":
+        return FontAwesomeIcons.graduationCap;
+      case "Ekonomi":
+        return FontAwesomeIcons.coins;
+      case "Internationell politik":
+        return FontAwesomeIcons.globeEurope;
+      case "Infrastruktur och kommunikationer":
+        return FontAwesomeIcons.road;
+      default:
+        return FontAwesomeIcons.book;
+    }
   }
 }
