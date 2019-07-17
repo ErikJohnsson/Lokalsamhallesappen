@@ -5,6 +5,7 @@ This is a mobile app for "Centerpartiets ungdomsförbund", the youth party for C
 The list of features are currently:
  * Easy access to "Sakpolitiska programmet".
  * Search the entire "Sakpolitiska programmet"!
+ * Easy acces to "Idéprogrammet"
  
 <b>Installation</b>
 <br>
