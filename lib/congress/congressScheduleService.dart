@@ -92,7 +92,7 @@ class CongressScheduleService{
 
   Widget widgetForOneDay(Schedule schedule){
     List<Widget> widgets = new List();
-    widgets.add(listItemWidget("Schema för " + schedule.title, FontAwesomeIcons.calendar, 20));
+    widgets.add(listItemWidget(schedule.title, FontAwesomeIcons.calendar, 20));
     schedule.activities.forEach((activity) => widgets.add(listItemWidget(activity, FontAwesomeIcons.clock, 15)));
 
     return ConstrainedBox(
