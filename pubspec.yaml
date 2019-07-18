@@ -11,13 +11,14 @@ description: CUF application
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.0+2
+version: 1.2.0+3
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   cloud_firestore:
+  firebase_storage: ^2.0.0
   auto_size_text: ^2.0.1
   flutter_html: ^0.10.4
   font_awesome_flutter: ^8.0.1
@@ -65,6 +66,7 @@ flutter:
     - images/sakpolitiska_background.jpg
     - images/home_background.jpg
     - images/congress_background.jpg
+    - images/motions_background.jpg
   fonts:
      - family: CalibriLight
        fonts:

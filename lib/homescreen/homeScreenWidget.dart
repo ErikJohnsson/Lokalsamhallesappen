@@ -39,7 +39,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
                 FontAwesomeIcons.facebook,
                 "https://www.facebook.com/cufswe/"),
             createCard("Twitter",
-                "Följ oss på twitter @cuf",
+                "Följ oss på Twitter!",
                 Color.fromRGBO(56, 161, 243, 1),
                 FontAwesomeIcons.twitter,
                 "https://twitter.com/cuf")

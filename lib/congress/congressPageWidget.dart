@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/congressScheduleService.dart';
 
+import 'congressMotionsPage.dart';
 import 'fullSchedulePageWidget.dart';
 
 class CongressPageWidget extends StatefulWidget {
@@ -31,19 +32,22 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              buildCard("Motioner (kommer snart)",
+              buildCard("Motioner",
                   FontAwesomeIcons.scroll,
                   null,
-                  null),
+                  CongressMotionsPageWidget()
+              ),
               buildCard("Stämmohandlingar (kommer snart)",
                   FontAwesomeIcons.book,
                   null,
-                  null),
+                  null
+              ),
               buildTodaysSchedule(),
               buildCard("Fullständigt schema",
                         FontAwesomeIcons.clock,
                         FontAwesomeIcons.arrowRight,
-                        FullSchedulePageWidget()),
+                        FullSchedulePageWidget()
+              ),
             ],
           ),
         ),
