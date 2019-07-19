@@ -27,6 +27,20 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
 
     if(allSchedules == null){
       service.fullScheduleWidget().then((widget) => setLoadedSchedule(widget));
+      return Scaffold(
+        body: Container(
+            padding: EdgeInsets.fromLTRB(7, 30, 7, 0),
+            decoration: BoxDecoration(
+              // Box decoration takes a gradient
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                    image: AssetImage("images/congress_background.jpg")
+                )
+            ),
+            child: Center(child: CircularProgressIndicator())
+        ),
+      );
     }
 
     return Scaffold(
@@ -40,10 +54,7 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
                 image: AssetImage("images/congress_background.jpg")
             )
         ),
-        child:
-            loadedSchedule
-                ?  allSchedules
-                :  CircularProgressIndicator()
+        child: allSchedules
       ),
     );
   }
