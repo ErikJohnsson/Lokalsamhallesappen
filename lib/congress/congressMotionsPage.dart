@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/motion.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'congressMotionService.dart';
 import 'congressMotionsChapterPage.dart';
 
@@ -37,7 +35,9 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
                 )
             ),
           child: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9)),
+            ),
           )
         )
       );
@@ -84,9 +84,6 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
         child: ListTile(
           leading: Icon(
               leadingIcon,
-              color: cufDarkGreen),
-          trailing: Icon(
-              getDownloadStatus(text),
               color: cufDarkGreen),
           title: Text(
             text,
@@ -138,6 +135,4 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
       motionsMap = motions;
     });
   }
-
-  IconData getDownloadStatus(String text) {}
 }

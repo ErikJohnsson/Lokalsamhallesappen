@@ -24,6 +24,7 @@ class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
       return Container(
           child: Center(
             child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9))
             ),
           )
       );

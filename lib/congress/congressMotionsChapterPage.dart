@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/motion.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_plugin.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CongressMotionsChapterPageWidget extends StatefulWidget {
   final List<Motion> motions;
@@ -47,7 +47,7 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
             itemCount: widget.motions.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                  child: buildMotionCard(widget.motions[index], FontAwesomeIcons.newspaper),
+                  child: buildMotionCard(widget.motions[index], FontAwesomeIcons.fileAlt),
                   onTap: () => launchPdf(widget.motions[index])
               );
             },
@@ -83,17 +83,25 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
 
   Widget getDownloadStatus(Motion motion) {
     if(downloading.contains(motion)){
-      return CircularProgressIndicator();
+      return SizedBox(
+        height: 17,
+        width: 17,
+        child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(cufDarkGreen),
+        ),
+      );
     }
     else if(DefaultCacheManager().getFileFromMemory(motion.url) == null){
       return Icon(
-        FontAwesomeIcons.arrowCircleDown,
+        FontAwesomeIcons.arrowDown,
+        size: 21,
         color: cufDarkGreen,
       );
     }
     else{
       return Icon(
-        FontAwesomeIcons.checkCircle,
+        FontAwesomeIcons.check,
+        size: 18,
         color: cufDarkGreen,
       );
     }
@@ -114,13 +122,15 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
   openPdf(FileInfo fileInfo, Motion motion) async {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => PDFViewerScaffold(
-              appBar: AppBar(
-                backgroundColor: cufDarkGreen,
-                title: Text(motion.title),
-              ),
-              path: fileInfo.file.path)),
+      PageTransition(
+        type: PageTransitionType.fade,
+        child: PDFViewerScaffold(
+            appBar: AppBar(
+              backgroundColor: cufDarkGreen,
+              title: Text(motion.title),
+            ),
+            path: fileInfo.file.path)
+      )
     );
   }
 
