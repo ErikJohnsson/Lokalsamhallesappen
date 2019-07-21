@@ -36,6 +36,7 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
       return Container(
           child: Center(
             child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9))
             ),
           )
       );

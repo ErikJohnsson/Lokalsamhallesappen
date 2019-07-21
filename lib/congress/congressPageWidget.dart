@@ -37,7 +37,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
                   null,
                   CongressMotionsPageWidget()
               ),
-              buildCard("Stämmohandlingar (kommer snart)",
+              buildCard("Övriga stämmohandlingar (kommer snart)",
                   FontAwesomeIcons.book,
                   null,
                   null
@@ -45,7 +45,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
               buildTodaysSchedule(),
               buildCard("Fullständigt schema",
                         FontAwesomeIcons.clock,
-                        FontAwesomeIcons.arrowRight,
+                        null,
                         FullSchedulePageWidget()
               ),
             ],
@@ -116,11 +116,17 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
               ),
             )
         ),
-        onTap:() => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => newPage))
+        onTap:() => openNewPage(newPage)
     );
+  }
+
+  openNewPage(Widget newPage) {
+    if(newPage!= null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => newPage));
+    }
   }
 
 }

@@ -1,11 +1,9 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/motion.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'congressMotionService.dart';
+import 'congressMotionsChapterPage.dart';
 
 
 class CongressMotionsPageWidget extends StatefulWidget {
@@ -28,8 +26,18 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
 
       return Scaffold(
         body: Container(
+            decoration: BoxDecoration(
+              // Box decoration takes a gradient
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                    image: AssetImage("images/motions_background.jpg")
+                )
+            ),
           child: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9)),
+            ),
           )
         )
       );
@@ -51,11 +59,11 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
           itemCount: motionChapters.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-                child: buildMotionCard(motionChapters[index], getIcon(motionChapters[index])),
+                child: buildMotionChapterCard(motionChapters[index], getIcon(motionChapters[index])),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => createChapterMotionsPage(motionChapters[index])
+                        builder: (context) => CongressMotionsChapterPageWidget(motions: motionsMap[motionChapters[index]])
                     )
                 ),
             );
@@ -66,7 +74,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
   }
 
 
-  Widget buildMotionCard(String text, IconData icon) {
+  Widget buildMotionChapterCard(String text, IconData leadingIcon) {
     return Container(
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.9),
@@ -75,7 +83,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
         margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
         child: ListTile(
           leading: Icon(
-              icon,
+              leadingIcon,
               color: cufDarkGreen),
           title: Text(
             text,
@@ -87,42 +95,6 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
           ),
         )
     );
-  }
-
-  Widget createChapterMotionsPage(String chapter){
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
-                image: AssetImage("images/motions_background.jpg")
-            )
-        ),
-        alignment: Alignment.center,
-        child: Scrollbar(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: motionsMap[chapter].length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  child: buildMotionCard(motionsMap[chapter][index].title, FontAwesomeIcons.newspaper),
-                  onTap: () => _launchURL(motionsMap[chapter][index].url)
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   IconData getIcon(String chapterTitle){
@@ -141,10 +113,14 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
         return FontAwesomeIcons.graduationCap;
       case "Ekonomi":
         return FontAwesomeIcons.coins;
-      case "Internationell politik":
+      case "Internationellt":
         return FontAwesomeIcons.globeEurope;
-      case "Infrastruktur och kommunikationer":
+      case "Infrastruktur och kommunikation":
         return FontAwesomeIcons.road;
+      case "Organisation":
+        return FontAwesomeIcons.users;
+      case "Propositioner":
+        return FontAwesomeIcons.book;
       default:
         return FontAwesomeIcons.book;
     }

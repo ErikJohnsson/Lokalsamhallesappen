@@ -98,7 +98,6 @@ class CongressScheduleService{
     return ConstrainedBox(
       constraints: new BoxConstraints(
         minHeight: 50.0,
-        maxHeight: 300.0,
       ),
       child: Container(
         margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
@@ -107,11 +106,9 @@ class CongressScheduleService{
             borderRadius: BorderRadius.circular(5)
         ),
         child:
-        Scrollbar(
-          child: ListView(
-            shrinkWrap: true,
+          Column(
             children: widgets,
-          ),
+
         ),
       ),
     );
