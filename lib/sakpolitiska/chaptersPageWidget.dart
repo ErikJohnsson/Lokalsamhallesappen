@@ -186,4 +186,10 @@ class ChapterSearch extends SearchDelegate<Chapter>{
     return parsedString;
   }
 
+  @override
+  void showResults(BuildContext context) {
+    // Does nothing.
+    // Closes the keyboard.
+  }
+
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/motion.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CongressMotionsChapterPageWidget extends StatefulWidget {
@@ -120,6 +119,7 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
   }
 
   openPdf(FileInfo fileInfo, Motion motion) async {
+
     Navigator.push(
       context,
       PageTransition(
