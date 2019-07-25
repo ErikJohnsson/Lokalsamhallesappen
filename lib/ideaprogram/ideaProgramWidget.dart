@@ -28,9 +28,9 @@ class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
             ),
           )
       );
-    } else {
-      return ChapterWidget(chapter: ideaProgram, appBarEnabled: false,);
     }
+
+    return ChapterWidget(chapter: ideaProgram, appBarEnabled: false,);
   }
 
   void setIdeaProgram(Chapter chapter){
