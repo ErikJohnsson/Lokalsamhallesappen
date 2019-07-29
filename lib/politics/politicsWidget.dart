@@ -29,7 +29,7 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage("images/sakpolitiska_background.jpg"),
-                      colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                      colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                   )
                 ),
                   child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
