@@ -128,7 +128,18 @@ class ChapterSearch extends SearchDelegate<Chapter>{
 
   @override
   Widget buildResults(BuildContext context) {
-    return ChapterWidget(chapter: selectedChapter, startAtChapter: selectedChapter.subChapters.indexOf(subChapterSelected)+1);
+    if(selectedChapter != null && subChapterSelected != null) {
+      return ChapterWidget(chapter: selectedChapter,
+          startAtChapter: selectedChapter.subChapters.indexOf(
+              subChapterSelected) + 1);
+    }else{
+      return Center(
+      child: Text(
+          "Hittade ingenting.",
+          style: TextStyle(fontSize: 18),
+      )
+    );
+    }
   }
 
   @override
@@ -185,11 +196,4 @@ class ChapterSearch extends SearchDelegate<Chapter>{
 
     return parsedString;
   }
-
-  @override
-  void showResults(BuildContext context) {
-    // Does nothing.
-    // Closes the keyboard.
-  }
-
 }

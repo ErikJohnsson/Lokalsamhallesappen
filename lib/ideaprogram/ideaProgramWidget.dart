@@ -14,17 +14,22 @@ class IdeaProgramWidget extends StatefulWidget {
 
 class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
   Chapter ideaProgram;
+  bool fetched = false;
 
   @override
   Widget build(BuildContext context) {
-    if(ideaProgram == null){
+    if(!fetched){
+      fetched = true;
       IdeaProgramService service = new IdeaProgramService();
       service.fetchIdeaProgram().then((result) => setIdeaProgram(result));
+    }
 
+    if(ideaProgram == null) {
       return Container(
           child: Center(
             child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9))
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                    Colors.white.withOpacity(0.9))
             ),
           )
       );
