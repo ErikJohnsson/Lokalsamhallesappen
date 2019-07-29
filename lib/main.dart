@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lokalsamhallesappen/sakpolitiska/politicsWidget.dart';
+import 'package:lokalsamhallesappen/politics/politicsWidget.dart';
 
 import 'congress/congressPageWidget.dart';
+import 'general/colors.dart';
 import 'homescreen/homeScreenWidget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lokalsamhällesappen',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         fontFamily: 'CalibriLight'
       ),
       home: MyHomePage(title: 'Lokalsamhällesappen'),
@@ -35,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedPage = 0;
-  Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBar(
             onTap: onTabTapped,
               currentIndex: _selectedPage,
-              selectedItemColor: cufDarkGreen,
+              selectedItemColor: CufColors.mainColor,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.home),

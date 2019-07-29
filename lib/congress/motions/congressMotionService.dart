@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lokalsamhallesappen/congress/motion.dart';
+import 'package:lokalsamhallesappen/congress/motions/motion.dart';
 
 class CongressMotionService{
   Future<Map<String, List<Motion>>> fetchChapters() async{

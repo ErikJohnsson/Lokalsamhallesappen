@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lokalsamhallesappen/sakpolitiska/chapter.dart';
+import 'package:lokalsamhallesappen/politics/chapter.dart';
 
 class IdeaProgramService{
 

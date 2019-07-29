@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 import 'chapter.dart';
 
 class ChapterWidget extends StatefulWidget {
@@ -80,7 +81,7 @@ class ChapterWidgetState extends State<ChapterWidget>{
       child: Container(
           width: MediaQuery.of(context).size.width / 3,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(001, 106, 058, 1.0),
+            color: CufColors.mainColor,
           ),
           child: Container(
                 decoration: BoxDecoration(
@@ -127,7 +128,7 @@ class ChapterWidgetState extends State<ChapterWidget>{
       child: Container(
           width: MediaQuery.of(context).size.width / 3,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(001, 106, 058, 1.0),
+            color: CufColors.mainColor,
           ),
           child: Container(
                     decoration: BoxDecoration(
@@ -181,7 +182,7 @@ class ChapterWidgetState extends State<ChapterWidget>{
     return Scaffold(
         appBar: widget.appBarEnabled ? AppBar(
           elevation: 0.1,
-          backgroundColor: Color.fromRGBO(001, 106, 058, 1.0),
+          backgroundColor: CufColors.mainColor,
           title: Text(widget.chapter.title)
         ) : null,
         body: Column(

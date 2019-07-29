@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lokalsamhallesappen/congress/motion.dart';
-import 'congressMotionService.dart';
-import 'congressMotionsChapterPage.dart';
+import 'package:lokalsamhallesappen/congress/motions/motion.dart';
+import 'package:lokalsamhallesappen/congress/motions/congressMotionService.dart';
+import 'package:lokalsamhallesappen/congress/motions/congressMotionsChapterPage.dart';
+import 'package:lokalsamhallesappen/general/NavigationCard.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
+import 'package:lokalsamhallesappen/general/iconService.dart';
 
 
 class CongressMotionsPageWidget extends StatefulWidget {
@@ -14,7 +16,6 @@ class CongressMotionsPageWidget extends StatefulWidget {
 }
 
 class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
-  Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
   Map<String, List<Motion>> motionsMap;
   List<String> motionChapters;
 
@@ -30,7 +31,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
               // Box decoration takes a gradient
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                    colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                     image: AssetImage("images/motions_background.jpg")
                 )
             ),
@@ -49,7 +50,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                 image: AssetImage("images/motions_background.jpg")
             )
         ),
@@ -58,8 +59,9 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
           shrinkWrap: true,
           itemCount: motionChapters.length,
           itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-                child: buildMotionChapterCard(motionChapters[index], getIcon(motionChapters[index])),
+            return NavigationCard(
+                title: motionChapters[index],
+                leadingIcon: IconService.getIcon(motionChapters[index]),
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -71,59 +73,6 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
         ),
       ),
     );
-  }
-
-
-  Widget buildMotionChapterCard(String text, IconData leadingIcon) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(5)
-        ),
-        margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
-        child: ListTile(
-          leading: Icon(
-              leadingIcon,
-              color: cufDarkGreen),
-          title: Text(
-            text,
-            style: TextStyle(
-                color: cufDarkGreen,
-                fontSize: 18
-            ),
-            maxLines: 1,
-          ),
-        )
-    );
-  }
-
-  IconData getIcon(String chapterTitle){
-    switch(chapterTitle){
-      case "Demokrati":
-        return FontAwesomeIcons.university;
-      case "Människan":
-        return FontAwesomeIcons.male;
-      case "Jämställdhet":
-        return FontAwesomeIcons.balanceScale;
-      case "Migration och integration":
-        return FontAwesomeIcons.passport;
-      case "Miljö":
-        return FontAwesomeIcons.tree;
-      case "Utbildning":
-        return FontAwesomeIcons.graduationCap;
-      case "Ekonomi":
-        return FontAwesomeIcons.coins;
-      case "Internationellt":
-        return FontAwesomeIcons.globeEurope;
-      case "Infrastruktur och kommunikation":
-        return FontAwesomeIcons.road;
-      case "Organisation":
-        return FontAwesomeIcons.users;
-      case "Propositioner":
-        return FontAwesomeIcons.book;
-      default:
-        return FontAwesomeIcons.book;
-    }
   }
 
   doneFetchingChapters(Map<String, List<Motion>> motions) {

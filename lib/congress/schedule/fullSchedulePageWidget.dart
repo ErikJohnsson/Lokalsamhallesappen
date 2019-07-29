@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'congressScheduleService.dart';
+import 'package:lokalsamhallesappen/congress/schedule/congressScheduleService.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 
 class FullSchedulePageWidget extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
               // Box decoration takes a gradient
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                    colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                     image: AssetImage("images/congress_background.jpg")
                 )
             ),
@@ -50,7 +51,7 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                 image: AssetImage("images/congress_background.jpg")
             )
         ),

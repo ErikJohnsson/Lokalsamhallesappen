@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 
-import 'chapter.dart';
-import 'chapterService.dart';
+import '../chapter.dart';
+import 'package:lokalsamhallesappen/politics/sakpolitiska/sakpolitiskaService.dart';
 import 'package:html/parser.dart';
 
-import 'chapterWidget.dart';
+import 'package:lokalsamhallesappen/politics/chapterWidget.dart';
 
 class ChaptersPageWidget extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
                 ),
                 onTap: () => showSearch(context: context, delegate: chapterSearch),
               ),
-              leading: Icon(FontAwesomeIcons.search, color: Color.fromRGBO(001, 106, 058, 1)),
+              leading: Icon(FontAwesomeIcons.search, color: CufColors.mainColor),
             )
         ),
         onTap:() => showSearch(context: context, delegate: chapterSearch)

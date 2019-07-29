@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lokalsamhallesappen/sakpolitiska/chapter.dart';
-import 'package:lokalsamhallesappen/sakpolitiska/chapterWidget.dart';
+import 'package:lokalsamhallesappen/politics/chapter.dart';
+import 'package:lokalsamhallesappen/politics/chapterWidget.dart';
 
 import 'ideaProgramService.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -11,7 +12,6 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class HomePageWidgetState extends State<HomePageWidget> {
-  Color cufGreen = Color.fromRGBO(60, 90, 153, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
         // Box decoration takes a gradient
           image: DecorationImage(
               fit: BoxFit.cover,
-              colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+              colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
               image: AssetImage("images/home_background.jpg")
           )
       ),
