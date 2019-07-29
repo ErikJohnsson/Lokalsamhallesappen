@@ -64,6 +64,7 @@ class CongressScheduleService{
 
       final days = await scheduleDocument.reference.collection("days")
           .getDocuments();
+
       DocumentSnapshot day = days.documents.firstWhere((day) =>
       day.data["date"] == dateString);
 

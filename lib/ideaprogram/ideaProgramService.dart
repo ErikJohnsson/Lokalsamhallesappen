@@ -3,15 +3,13 @@ import 'package:lokalsamhallesappen/sakpolitiska/chapter.dart';
 
 class IdeaProgramService{
 
-  Chapter createChapter(DocumentSnapshot document){
+  Future<Chapter> createChapter(DocumentSnapshot document) async{
     List<Chapter> subChapters = new List();
     Chapter chapter = new Chapter(document.data["title"], document.data["about"], null);
-
-    document.reference.collection("subchapters").snapshots().listen((snapshot){
-      snapshot.documents.forEach((subChapterDoc) =>
-          subChapters.add(new Chapter(subChapterDoc.data["title"], subChapterDoc.data["content"], chapter))
-      );
-    });
+    final snapshot = await document.reference.collection("subchapters").getDocuments();
+    snapshot.documents.forEach((subChapterDoc) =>
+        subChapters.add(new Chapter(subChapterDoc.data["title"], subChapterDoc.data["content"], chapter))
+    );
 
     chapter.setSubChapters(subChapters);
     return chapter;
@@ -20,8 +18,7 @@ class IdeaProgramService{
   Future<Chapter> fetchIdeaProgram() async{
     Chapter chapter;
     final snapshot = await Firestore.instance.collection("ideprogram").getDocuments();
-    chapter = createChapter(snapshot.documents[0]);
-
+    chapter = await createChapter(snapshot.documents[0]);
     return chapter;
   }
 }
