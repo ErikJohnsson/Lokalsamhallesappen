@@ -31,7 +31,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
               // Box decoration takes a gradient
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                    colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                     image: AssetImage("images/motions_background.jpg")
                 )
             ),
@@ -50,7 +50,7 @@ class CongressMotionsPageWidgetState extends State<CongressMotionsPageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                 image: AssetImage("images/motions_background.jpg")
             )
         ),

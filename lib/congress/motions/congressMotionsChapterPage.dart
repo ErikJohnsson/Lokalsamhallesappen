@@ -35,7 +35,7 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                 image: AssetImage("images/motions_background.jpg")
             )
         ),

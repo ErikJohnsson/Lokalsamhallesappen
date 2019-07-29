@@ -35,7 +35,7 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
               // Box decoration takes a gradient
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                    colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                     image: AssetImage("images/congress_background.jpg")
                 )
             ),
@@ -51,7 +51,7 @@ class FullSchedulePageWidgetState extends State<FullSchedulePageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                 image: AssetImage("images/congress_background.jpg")
             )
         ),

@@ -26,7 +26,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
                 image: AssetImage("images/congress_background.jpg")
             )
         ),
@@ -42,6 +42,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
               NavigationCard(
                 title: "Övriga stämmohandlingar (kommer snart)",
                 leadingIcon: FontAwesomeIcons.book,
+                fontSize: 13,
               ),
               buildTodaysSchedule(),
               NavigationCard(
@@ -70,20 +71,8 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
 
       service.getScheduleForDay(now).then((todaysSchedule) => loadedTodaysSchedule(todaysSchedule));
 
-      return Container(
-        height: 50,
-        width: 20,
-        margin: EdgeInsets.fromLTRB(25, 0, 25, 0),
-        decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
-            borderRadius: BorderRadius.circular(5)
-        ),
-        child: Center(
-          child: Text(
-              "Loading...",
-              style: TextStyle(fontSize: 20),
-          ),
-        ),
+      return NavigationCard(
+        title: "Laddar...",
       );
     }
     return todaysSchedule;
