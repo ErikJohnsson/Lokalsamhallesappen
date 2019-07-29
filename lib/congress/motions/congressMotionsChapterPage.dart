@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lokalsamhallesappen/congress/motion.dart';
+import 'package:lokalsamhallesappen/congress/motions/motion.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CongressMotionsChapterPageWidget extends StatefulWidget {
@@ -24,7 +25,6 @@ class CongressMotionsChapterPageWidget extends StatefulWidget {
 }
 
 class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapterPageWidget>{
-  Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
   List<Motion> downloading = new List();
 
   @override
@@ -66,12 +66,12 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
         child: ListTile(
           leading: Icon(
               leadingIcon,
-              color: cufDarkGreen),
+              color: CufColors.mainColor),
           trailing: getDownloadStatus(motion),
           title: Text(
             motion.title,
             style: TextStyle(
-                color: cufDarkGreen,
+                color: CufColors.mainColor,
                 fontSize: 18
             ),
             maxLines: 1,
@@ -86,7 +86,7 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
         height: 17,
         width: 17,
         child: CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(cufDarkGreen),
+          valueColor: new AlwaysStoppedAnimation<Color>(CufColors.mainColor),
         ),
       );
     }
@@ -94,14 +94,14 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
       return Icon(
         FontAwesomeIcons.arrowDown,
         size: 21,
-        color: cufDarkGreen,
+        color: CufColors.mainColor,
       );
     }
     else{
       return Icon(
         FontAwesomeIcons.check,
         size: 18,
-        color: cufDarkGreen,
+        color: CufColors.mainColor,
       );
     }
   }
@@ -126,7 +126,7 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
         type: PageTransitionType.fade,
         child: PDFViewerScaffold(
             appBar: AppBar(
-              backgroundColor: cufDarkGreen,
+              backgroundColor: CufColors.mainColor,
               title: Text(motion.title),
             ),
             path: fileInfo.file.path)

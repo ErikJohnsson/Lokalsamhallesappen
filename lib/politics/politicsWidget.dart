@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lokalsamhallesappen/ideaprogram/ideaProgramWidget.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 
-import 'chaptersPageWidget.dart';
+import 'package:lokalsamhallesappen/politics/sakpolitiska/sakpolitiskaWidget.dart';
+
+import 'ideaprogram/ideaProgramWidget.dart';
 
 class PoliticsPageWidget extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage("images/sakpolitiska_background.jpg"),
-                      colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                      colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                   )
                 ),
                   child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
@@ -60,7 +62,7 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
       child: Container(
           width: MediaQuery.of(context).size.width / 2,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(001, 106, 058, 1.0),
+            color: CufColors.mainColor,
           ),
           child: Container(
             decoration: BoxDecoration(

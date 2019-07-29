@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'Schedule.dart';
+import 'package:lokalsamhallesappen/congress/schedule/Schedule.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 
 class CongressScheduleService{
-
-  Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
-
   Future<Widget> getScheduleForDay(DateTime date) async {
     if(date.isBefore(new DateTime(2019, 07, 29))){
       return Container(
@@ -21,12 +19,12 @@ class CongressScheduleService{
         child: ListTile(
           leading: Icon(
               FontAwesomeIcons.calendar,
-              color: cufDarkGreen),
+              color: CufColors.mainColor),
           title: AutoSizeText(
               "Stämman börjar om " + new DateTime(2019, 07, 29).difference(date).inDays.toString() + " dagar!",
               maxLines: 1,
               style: TextStyle(
-                  color: cufDarkGreen,
+                  color: CufColors.mainColor,
                   fontSize: 20
               )
           ),
@@ -43,12 +41,12 @@ class CongressScheduleService{
         child: ListTile(
           leading: Icon(
               FontAwesomeIcons.calendar,
-              color: cufDarkGreen),
+              color: CufColors.mainColor),
           title: AutoSizeText(
               "Stämman är slut, ses igen nästa år!",
               maxLines: 1,
               style: TextStyle(
-                  color: cufDarkGreen,
+                  color: CufColors.mainColor,
                   fontSize: 20
               )
           ),
@@ -119,11 +117,11 @@ class CongressScheduleService{
     return ListTile(
       leading: Icon(
           icon,
-          color: cufDarkGreen),
+          color: CufColors.mainColor),
       title: Text(
         text,
         style: TextStyle(
-            color: cufDarkGreen,
+            color: CufColors.mainColor,
             fontSize: fontSize
         )
       ),

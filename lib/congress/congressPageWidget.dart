@@ -2,10 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lokalsamhallesappen/congress/congressScheduleService.dart';
+import 'package:lokalsamhallesappen/congress/schedule/congressScheduleService.dart';
+import 'package:lokalsamhallesappen/general/NavigationCard.dart';
 
-import 'congressMotionsPage.dart';
-import 'fullSchedulePageWidget.dart';
+import 'package:lokalsamhallesappen/congress/motions/congressMotionsPage.dart';
+import 'package:lokalsamhallesappen/congress/schedule/fullSchedulePageWidget.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 
 class CongressPageWidget extends StatefulWidget {
   @override
@@ -24,7 +26,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
           // Box decoration takes a gradient
             image: DecorationImage(
                 fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(Color.fromRGBO(001, 106, 058, 0.7), BlendMode.srcOver),
+                colorFilter: new ColorFilter.mode(CufColors.mainColor, BlendMode.srcOver),
                 image: AssetImage("images/congress_background.jpg")
             )
         ),
@@ -32,22 +34,21 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              buildCard("Motioner",
-                  FontAwesomeIcons.scroll,
-                  null,
-                  CongressMotionsPageWidget()
+              NavigationCard(
+                  title: "Motioner",
+                  leadingIcon: FontAwesomeIcons.scroll,
+                  onTap: () => openNewPage(CongressMotionsPageWidget())
               ),
-              buildCard("Övriga stämmohandlingar (kommer snart)",
-                  FontAwesomeIcons.book,
-                  null,
-                  null
+              NavigationCard(
+                title: "Övriga stämmohandlingar (kommer snart)",
+                leadingIcon: FontAwesomeIcons.book,
               ),
               buildTodaysSchedule(),
-              buildCard("Fullständigt schema",
-                        FontAwesomeIcons.clock,
-                        null,
-                        FullSchedulePageWidget()
-              ),
+              NavigationCard(
+                title: "Fullständigt schema",
+                leadingIcon: FontAwesomeIcons.calendarDay,
+                onTap: () => openNewPage(FullSchedulePageWidget()),
+              )
             ],
           ),
         ),
@@ -88,39 +89,7 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
     return todaysSchedule;
   }
 
-  Widget buildCard(String title, IconData icon, IconData endIcon, Widget newPage){
-    Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
-
-    return GestureDetector(
-        child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(5)
-            ),
-            margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
-            child:ListTile(
-              leading: Icon(
-                  icon,
-                  color: cufDarkGreen),
-              trailing:
-              Icon(
-                endIcon,
-                color: cufDarkGreen),
-              title: AutoSizeText(
-                title,
-                style: TextStyle(
-                    color: cufDarkGreen,
-                    fontSize: 20
-                ),
-                maxLines: 1,
-              ),
-            )
-        ),
-        onTap:() => openNewPage(newPage)
-    );
-  }
-
-  openNewPage(Widget newPage) {
+  void openNewPage(Widget newPage) {
     if(newPage!= null) {
       Navigator.push(
           context,
