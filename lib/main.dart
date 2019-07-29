@@ -35,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedPage = 0;
+  Color cufDarkGreen = Color.fromRGBO(001, 106, 058, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBar(
             onTap: onTabTapped,
               currentIndex: _selectedPage,
+              selectedItemColor: cufDarkGreen,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(FontAwesomeIcons.home),
