@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokalsamhallesappen/congress/papers/congressPapersPage.dart';
 import 'package:lokalsamhallesappen/congress/schedule/congressScheduleService.dart';
 import 'package:lokalsamhallesappen/general/navigationCard.dart';
 
@@ -30,9 +31,9 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
             onTap: () => openNewPage(CongressMotionsPageWidget())
         ),
         NavigationCard(
-          title: "Övriga stämmohandlingar (kommer snart)",
+          title: "Övriga stämmohandlingar",
           leadingIcon: FontAwesomeIcons.book,
-          fontSize: 13,
+          onTap: () => openNewPage(CongressPapersPage()),
         ),
         buildTodaysSchedule(),
         NavigationCard(

@@ -63,7 +63,7 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
   @override
   Widget build(BuildContext context) {
     if(chapters == null)service.fetchChapters().then((result) => fetchChaptersFinished(result));
-    
+
     return NavigationScreen(
       backgroundImage: AssetImage("images/sakpolitiska_background.jpg"),
       children: navigationCards,
