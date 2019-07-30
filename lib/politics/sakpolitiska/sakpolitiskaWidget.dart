@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/general/colors.dart';
+import 'package:lokalsamhallesappen/general/navigationScreen.dart';
 
 import '../chapter.dart';
 import 'package:lokalsamhallesappen/politics/sakpolitiska/sakpolitiskaService.dart';
@@ -17,6 +18,10 @@ class ChaptersPageWidget extends StatefulWidget {
 }
 
 class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
+  final ChapterService service = new ChapterService();
+  final ChapterSearch chapterSearch = new ChapterSearch();
+  List<Widget> navigationCards = new List();
+  bool showLoading = true;
   bool showSearchField = false;
   List<Chapter> chapters;
 
@@ -24,65 +29,46 @@ class ChaptersPageWidgetState extends State<ChaptersPageWidget>{
     if(mounted) {
       setState(() {
         this.chapters = chapters;
+        chapterSearch.setChapterList(chapters);
+        showLoading = false;
+        navigationCards.add(GestureDetector(
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white.withOpacity(0.9),
+                ),
+                margin: EdgeInsets.fromLTRB(25, 0, 25, 8),
+                child:ListTile(
+                  title: TextField(
+                    decoration: InputDecoration(
+                        hintText: "Sök...",
+                        border: InputBorder.none
+                    ),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20
+                    ),
+                    onTap: () => showSearch(context: context, delegate: chapterSearch),
+                  ),
+                  leading: Icon(FontAwesomeIcons.search, color: CufColors.mainColor),
+                )
+            ),
+            onTap:() => showSearch(context: context, delegate: chapterSearch)
+        ));
+        navigationCards.addAll(service.buildChapterCards(context, chapters));
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    ChapterService service = new ChapterService();
-    if(chapters == null){
-      service.fetchChapters().then((result) => fetchChaptersFinished(result));
-
-      return Container(
-          child: Center(
-            child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.9))
-            ),
-          )
-      );
-    }
-
-    ChapterSearch chapterSearch = new ChapterSearch();
-    chapterSearch.setChapterList(chapters);
-
-    List<Widget> cards = new List();
-    cards.add(GestureDetector(
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.white.withOpacity(0.9),
-            ),
-            margin: EdgeInsets.fromLTRB(25, 0, 25, 8),
-            child:ListTile(
-              title: TextField(
-                decoration: InputDecoration(
-                    hintText: "Sök...",
-                    border: InputBorder.none
-                ),
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20
-                ),
-                onTap: () => showSearch(context: context, delegate: chapterSearch),
-              ),
-              leading: Icon(FontAwesomeIcons.search, color: CufColors.mainColor),
-            )
-        ),
-        onTap:() => showSearch(context: context, delegate: chapterSearch)
-    ));
-    cards.addAll(service.buildChapterCards(context, chapters));
-
-    return Container(
-            child: Container(
-              alignment: Alignment.center,
-              child: ListView(
-                  shrinkWrap: true,
-                  children: cards,
-              ),
-            ),
+    if(chapters == null)service.fetchChapters().then((result) => fetchChaptersFinished(result));
+    
+    return NavigationScreen(
+      backgroundImage: AssetImage("images/sakpolitiska_background.jpg"),
+      children: navigationCards,
+      showLoading: showLoading,
     );
-
   }
 }
 

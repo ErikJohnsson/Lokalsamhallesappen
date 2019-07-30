@@ -24,30 +24,21 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
       body: Column(
           children: <Widget>[
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("images/sakpolitiska_background.jpg"),
-                      colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
-                  )
-                ),
-                  child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget()
-              ),
+              child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget(),
             ),
             SizedBox(
-            height: 52,
-            child: buildTopNavigation()
+              height: 52,
+              child: buildBottomNavigation()
             ),
           ]
       ),
     );
   }
 
-  Widget buildTopNavigation(){
+  Widget buildBottomNavigation(){
     List<Widget> navigationItems = new List();
-    navigationItems.add(createTopBarNavigationItem(0, "Sakpolitiska"));
-    navigationItems.add(createTopBarNavigationItem(1, "Idéprogram"));
+    navigationItems.add(buildBottomBarNavigationItem(0, "Sakpolitiska"));
+    navigationItems.add(buildBottomBarNavigationItem(1, "Idéprogram"));
 
     return ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -57,7 +48,7 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
     );
   }
 
-  Widget createTopBarNavigationItem(int index, String title){
+  Widget buildBottomBarNavigationItem(int index, String title){
     return GestureDetector(
       child: Container(
           width: MediaQuery.of(context).size.width / 2,

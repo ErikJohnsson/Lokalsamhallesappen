@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lokalsamhallesappen/general/NavigationCard.dart';
+import 'package:lokalsamhallesappen/general/navigationCard.dart';
 import 'package:lokalsamhallesappen/general/iconService.dart';
 
 import '../chapter.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lokalsamhallesappen/general/colors.dart';
 import 'package:lokalsamhallesappen/politics/chapter.dart';
 import 'package:lokalsamhallesappen/politics/chapterWidget.dart';
 
@@ -25,17 +26,21 @@ class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
     }
 
     if(ideaProgram == null) {
-      return Container(
-          child: Center(
-            child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(
-                    Colors.white.withOpacity(0.9))
-            ),
-          )
+      return SafeArea(
+        child: Container(
+            child: Center(
+              child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(
+                      CufColors.mainColor.withOpacity(0.9))
+              ),
+            )
+        ),
       );
     }
 
-    return ChapterWidget(chapter: ideaProgram, appBarEnabled: false,);
+    return SafeArea(
+        child: ChapterWidget(chapter: ideaProgram, appBarEnabled: false,)
+    );
   }
 
   void setIdeaProgram(Chapter chapter){

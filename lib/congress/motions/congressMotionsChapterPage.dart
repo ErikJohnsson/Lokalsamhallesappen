@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/motions/motion.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:lokalsamhallesappen/general/colors.dart';
+import 'package:lokalsamhallesappen/general/navigationScreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CongressMotionsChapterPageWidget extends StatefulWidget {
@@ -29,31 +30,19 @@ class CongressMotionsChapterPageWidgetState extends State<CongressMotionsChapter
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
-                image: AssetImage("images/motions_background.jpg")
-            )
-        ),
-        alignment: Alignment.center,
-        child: Scrollbar(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.motions.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                  child: buildMotionCard(widget.motions[index], FontAwesomeIcons.fileAlt),
-                  onTap: () => launchPdf(widget.motions[index])
-              );
-            },
-          ),
-        ),
-      ),
+    return NavigationScreen(
+      backgroundImage: AssetImage("images/motions_background.jpg"),
+      children: buildNavigationCards(),
     );
+  }
+
+  List<Widget> buildNavigationCards(){
+    List<Widget> widgets = new List();
+    widget.motions.forEach((m) => widgets.add(GestureDetector(
+        child: buildMotionCard(m, FontAwesomeIcons.fileAlt),
+        onTap: () => launchPdf(m)
+    )));
+    return widgets;
   }
 
   Widget buildMotionCard(Motion motion, IconData leadingIcon) {
