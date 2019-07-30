@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -35,7 +34,7 @@ class CongressScheduleService{
       return Container(
         margin: EdgeInsets.fromLTRB(25, 3, 25, 3),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withOpacity(0.9),
             borderRadius: BorderRadius.circular(5)
         ),
         child: ListTile(
@@ -71,7 +70,7 @@ class CongressScheduleService{
     }
   }
 
-  Future<Widget> fullScheduleWidget() async{
+  Future<List<Widget>> fullScheduleWidget() async{
     List<Schedule> schedules = new List();
 
     final congress = await Firestore.instance.collection("congress").getDocuments();
@@ -81,13 +80,10 @@ class CongressScheduleService{
     days.documents.forEach((day) =>
         schedules.add(new Schedule(day.data["date"], day.data["title"], day.data["activities"])));
 
-      return ListView.builder(
-          itemCount: schedules.length,
-          itemBuilder: (BuildContext context, int index){
-            return widgetForOneDay(schedules[index]);
-          }
-      );
-    }
+    List<Widget> widgets = new List();
+    schedules.forEach((s) => widgets.add(widgetForOneDay(s)));
+    return widgets;
+  }
 
   Widget widgetForOneDay(Schedule schedule){
     List<Widget> widgets = new List();
@@ -105,8 +101,8 @@ class CongressScheduleService{
             borderRadius: BorderRadius.circular(5)
         ),
         child:
-          Column(
-            children: widgets,
+        Column(
+          children: widgets,
 
         ),
       ),
@@ -119,11 +115,11 @@ class CongressScheduleService{
           icon,
           color: CufColors.mainColor),
       title: Text(
-        text,
-        style: TextStyle(
-            color: CufColors.mainColor,
-            fontSize: fontSize
-        )
+          text,
+          style: TextStyle(
+              color: CufColors.mainColor,
+              fontSize: fontSize
+          )
       ),
     );
   }

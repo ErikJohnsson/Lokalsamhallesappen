@@ -1,13 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokalsamhallesappen/congress/papers/congressPapersPage.dart';
 import 'package:lokalsamhallesappen/congress/schedule/congressScheduleService.dart';
-import 'package:lokalsamhallesappen/general/NavigationCard.dart';
+import 'package:lokalsamhallesappen/general/navigationCard.dart';
 
 import 'package:lokalsamhallesappen/congress/motions/congressMotionsPage.dart';
 import 'package:lokalsamhallesappen/congress/schedule/fullSchedulePageWidget.dart';
-import 'package:lokalsamhallesappen/general/colors.dart';
+import 'package:lokalsamhallesappen/general/navigationScreen.dart';
 
 class CongressPageWidget extends StatefulWidget {
   @override
@@ -21,39 +21,28 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
 
   @override
   Widget build(BuildContext context) {
-      return Container(
-        decoration: BoxDecoration(
-          // Box decoration takes a gradient
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(CufColors.mainColor.withOpacity(0.7), BlendMode.srcOver),
-                image: AssetImage("images/congress_background.jpg")
-            )
+
+    return NavigationScreen(
+      backgroundImage: AssetImage("images/congress_background.jpg"),
+      children: <Widget>[
+        NavigationCard(
+            title: "Motioner",
+            leadingIcon: FontAwesomeIcons.scroll,
+            onTap: () => openNewPage(CongressMotionsPageWidget())
         ),
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              NavigationCard(
-                  title: "Motioner",
-                  leadingIcon: FontAwesomeIcons.scroll,
-                  onTap: () => openNewPage(CongressMotionsPageWidget())
-              ),
-              NavigationCard(
-                title: "Övriga stämmohandlingar (kommer snart)",
-                leadingIcon: FontAwesomeIcons.book,
-                fontSize: 13,
-              ),
-              buildTodaysSchedule(),
-              NavigationCard(
-                title: "Fullständigt schema",
-                leadingIcon: FontAwesomeIcons.calendarDay,
-                onTap: () => openNewPage(FullSchedulePageWidget()),
-              )
-            ],
-          ),
+        NavigationCard(
+          title: "Övriga stämmohandlingar",
+          leadingIcon: FontAwesomeIcons.book,
+          onTap: () => openNewPage(CongressPapersPage()),
         ),
-      );
+        buildTodaysSchedule(),
+        NavigationCard(
+          title: "Fullständigt schema",
+          leadingIcon: FontAwesomeIcons.calendarDay,
+          onTap: () => openNewPage(FullSchedulePageWidget()),
+        )
+      ],
+    );
   }
 
   void loadedTodaysSchedule(Widget widget){

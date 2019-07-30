@@ -39,8 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
           bottomNavigationBar:
           BottomNavigationBar(
             onTap: onTabTapped,
@@ -61,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ]),
             body: getPage()
-        )
     );
   }
 
