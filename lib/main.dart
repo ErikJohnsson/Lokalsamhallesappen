@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lokalsamhallesappen/politics/politicsWidget.dart';
-
 import 'congress/congressPageWidget.dart';
 import 'general/colors.dart';
 import 'homescreen/homeScreenWidget.dart';

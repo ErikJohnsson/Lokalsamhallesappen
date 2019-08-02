@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:lokalsamhallesappen/general/colors.dart';
 
 import 'package:lokalsamhallesappen/politics/sakpolitiska/sakpolitiskaWidget.dart';
+import 'package:lokalsamhallesappen/politics/statements/statementsPage.dart';
 
 import 'ideaprogram/ideaProgramWidget.dart';
 
@@ -19,12 +20,11 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Column(
           children: <Widget>[
             Expanded(
-              child: pageSelected == 0 ? ChaptersPageWidget() : IdeaProgramWidget(),
+              child: getPage()
             ),
             SizedBox(
               height: 52,
@@ -35,10 +35,21 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
     );
   }
 
+  Widget getPage(){
+    switch (pageSelected){
+      case 0: return ChaptersPageWidget();
+      case 1: return IdeaProgramWidget();
+      case 2: return StatementsPage();
+      default: return Container();
+    }
+  }
+
   Widget buildBottomNavigation(){
-    List<Widget> navigationItems = new List();
-    navigationItems.add(buildBottomBarNavigationItem(0, "Sakpolitiska"));
-    navigationItems.add(buildBottomBarNavigationItem(1, "Idéprogram"));
+    List<Widget> navigationItems = [
+      buildBottomBarNavigationItem(0, "Sakpolitiska"),
+      buildBottomBarNavigationItem(1, "Idéprogram"),
+      buildBottomBarNavigationItem(2, "Politik i punkter")
+    ];
 
     return ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -51,7 +62,7 @@ class PoliticsPageWidgetState extends State<PoliticsPageWidget>{
   Widget buildBottomBarNavigationItem(int index, String title){
     return GestureDetector(
       child: Container(
-          width: MediaQuery.of(context).size.width / 2,
+          width: MediaQuery.of(context).size.width / 3,
           decoration: BoxDecoration(
             color: CufColors.mainColor,
           ),
