@@ -6,6 +6,8 @@ The list of features are currently:
  * Easy access to "Sakpolitiska programmet".
  * Search the entire "Sakpolitiska programmet"!
  * Easy acces to "Idéprogrammet"
+ * Easy access to "Politik i punkter"
+ * Easy access to motions, papers and schedule for förbundsstämman
  
 <b>Installation</b>
 <br>
