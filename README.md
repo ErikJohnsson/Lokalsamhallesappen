@@ -11,7 +11,7 @@ The list of features are currently:
  
 <b>Installation</b>
 <br>
- <a href="https://play.google.com/store/apps/details?id=com.cuf.lokalsamhallesappen">LINK TO ANDROID PLAYSTORE</a>
+ <a href="https://play.google.com/store/apps/details?id=com.cuf.lokalsamhallesappen">Link to Android PlayStore</a>
 <br>
  
  <b>New features</b>
