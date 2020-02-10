@@ -16,7 +16,7 @@ The list of features are currently:
  
  <b>New features</b>
  <br>
- Is there a feature you are missing? Add it to the issues tab and we'll see if we can implement it!
+ Is there a feature you are missing? Add it to the issues tab or implement it on your own. :)
  
  <b>Dependencies</b>
   <br>
