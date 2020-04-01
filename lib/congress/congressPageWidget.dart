@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokalsamhallesappen/congress/papers/congressPapersPage.dart';
 import 'package:lokalsamhallesappen/congress/schedule/congressScheduleService.dart';
+import 'package:lokalsamhallesappen/general/congressHelper.dart';
+import 'package:lokalsamhallesappen/general/firestoreHelper.dart';
 import 'package:lokalsamhallesappen/general/navigationCard.dart';
 
 import 'package:lokalsamhallesappen/congress/motions/congressMotionsPage.dart';
@@ -18,31 +20,61 @@ class CongressPageWidget extends StatefulWidget {
 
 class CongressPageWidgetState extends State<CongressPageWidget>{
   Widget todaysSchedule;
+  List<Widget> congressCards;
 
   @override
   Widget build(BuildContext context) {
-
     return NavigationScreen(
-      backgroundImage: AssetImage("images/congress_background.jpg"),
-      children: <Widget>[
-        NavigationCard(
-            title: "Motioner",
-            leadingIcon: FontAwesomeIcons.scroll,
-            onTap: () => openNewPage(CongressMotionsPageWidget())
-        ),
-        NavigationCard(
-          title: "Övriga stämmohandlingar",
-          leadingIcon: FontAwesomeIcons.book,
-          onTap: () => openNewPage(CongressPapersPage()),
-        ),
-        buildTodaysSchedule(),
-        NavigationCard(
-          title: "Fullständigt schema",
-          leadingIcon: FontAwesomeIcons.calendarDay,
-          onTap: () => openNewPage(FullSchedulePageWidget()),
-        )
-      ],
-    );
+        backgroundImage: AssetImage("images/congress_background.jpg"),
+        children: getCongressCards()
+      );
+  }
+
+  List<Widget> getCongressCards(){
+    if(congressCards == null){
+      fetchCongressCards().then((cards) => {
+          if(mounted) {
+            setState(() {
+              congressCards = cards;
+            })
+          }
+        });
+
+        return [NavigationCard(
+            title: "Laddar...",
+        )];
+    }
+    return congressCards;
+  }
+
+  Future<List<Widget>> fetchCongressCards() async{
+    final congress = await CongressHelper.currentCongressCollection();
+    bool activated = FireStoreHelper.getDocumentFromCollection(congress, "settings").data["activate"];
+    if(activated){
+      return [
+          NavigationCard(
+              title: "Motioner",
+              leadingIcon: FontAwesomeIcons.scroll,
+              onTap: () => openNewPage(CongressMotionsPageWidget())
+          ),
+          NavigationCard(
+            title: "Övriga stämmohandlingar",
+            leadingIcon: FontAwesomeIcons.book,
+            onTap: () => openNewPage(CongressPapersPage()),
+          ),
+          NavigationCard(
+            title: "Schema",
+            leadingIcon: FontAwesomeIcons.calendarDay,
+            onTap: () => openNewPage(FullSchedulePageWidget()),
+          )
+      ];
+    }
+    else{
+      return [NavigationCard(
+        title: "Into redo ännu...",
+        leadingIcon: FontAwesomeIcons.clock,
+      )];
+    }
   }
 
   void loadedTodaysSchedule(Widget widget){
@@ -51,20 +83,6 @@ class CongressPageWidgetState extends State<CongressPageWidget>{
         todaysSchedule = widget;
       });
     }
-  }
-
-  Widget buildTodaysSchedule(){
-    if(todaysSchedule == null){
-      CongressScheduleService service = new CongressScheduleService();
-      var now = new DateTime.now();
-
-      service.getScheduleForDay(now).then((todaysSchedule) => loadedTodaysSchedule(todaysSchedule));
-
-      return NavigationCard(
-        title: "Laddar...",
-      );
-    }
-    return todaysSchedule;
   }
 
   void openNewPage(Widget newPage) {

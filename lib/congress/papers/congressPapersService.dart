@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lokalsamhallesappen/general/congressHelper.dart';
 
 class CongressPapersService{
 
   Future<Map<String, String>> fetchPapers() async{
     Map<String, String> papers = new Map();
-
-    final congress = await Firestore.instance.collection("congress")
-        .getDocuments();
+    
+    final congress = await CongressHelper.currentCongressCollection();
 
     DocumentSnapshot papersDoc = congress.documents.firstWhere((
         doc) => doc.documentID == "papers");

@@ -38,8 +38,11 @@ class IdeaProgramWidgetState extends State<IdeaProgramWidget>{
       );
     }
 
-    return SafeArea(
-        child: ChapterWidget(chapter: ideaProgram, appBarEnabled: false,)
+    return Container(
+        color: CufColors.mainColor,
+        child:SafeArea(
+          child: ChapterWidget(chapter: ideaProgram, appBarEnabled: false),
+      )
     );
   }
 
