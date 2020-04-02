@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'CalibriLight'
       ),
       home: MyHomePage(title: 'Lokalsamhällesappen'),
+      debugShowCheckedModeBanner: false
     );
   }
 }
