@@ -13,6 +13,10 @@ The list of features are currently:
 <br>
  <a href="https://play.google.com/store/apps/details?id=com.cuf.lokalsamhallesappen">Link to Android Play Store</a>
 <br>
+<br>
+ <a href="https://apps.apple.com/se/app/lokalsamh%C3%A4llesappen/id1505834000?l=en">Link to App Store</a>
+<br>
+
  
  <b>New features</b>
  <br>
